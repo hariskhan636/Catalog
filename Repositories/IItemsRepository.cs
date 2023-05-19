@@ -8,5 +8,6 @@ namespace Catalog.Repositories
         Items GetItems(Guid id);
 
         void CreateItem(Items item);
+        void UpdateItem(Items item);
     }
 }
