@@ -18,6 +18,11 @@ namespace Catalog.Repositories
             items.Add(item);
         }
 
+        public void DeleteItem(Items item)
+        {
+            items.Remove(item);
+        }
+
         public IEnumerable<Items> GetItems()
         {
 
