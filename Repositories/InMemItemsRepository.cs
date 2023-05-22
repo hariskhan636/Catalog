@@ -13,28 +13,28 @@ namespace Catalog.Repositories
             new Items { Id= Guid.NewGuid(), Name="Glimmer Cape", Price=2750, CreatedDate=DateTimeOffset.UtcNow },
         };
 
-        public void CreateItem(Items item)
+        public async Task CreateItemAsync(Items item)
         {
             items.Add(item);
         }
 
-        public void DeleteItem(Items item)
+        public async Task DeleteItemAsync(Items item)
         {
             items.Remove(item);
         }
 
-        public IEnumerable<Items> GetItems()
+        public async Task<IEnumerable<Items>> GetItemsAsync()
         {
 
             return items;
         }
 
-        public Items GetItems(Guid id)
+        public async Task<Items> GetItemsAsync(Guid id)
         {
             return items.Where(item => item.Id == id).SingleOrDefault();
         }
 
-        public void UpdateItem(Items item)
+        public async Task UpdateItemAsync(Items item)
         {
             var index = items.FindIndex(i => i.Id == item.Id);
             items[index] = item;
