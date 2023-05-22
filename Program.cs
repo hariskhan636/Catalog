@@ -1,5 +1,6 @@
 using Catalog.Repositories;
 using Catalog.Settings;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -29,7 +30,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks()
-    .AddMongoDb(mongoSettings.ConnectionString, name: "mongodb", timeout: TimeSpan.FromSeconds(3));
+    .AddMongoDb(mongoSettings.ConnectionString,
+    name: "mongodb",
+    timeout: TimeSpan.FromSeconds(3),
+    tags: new[] { "ready" }
+    );
 
 var app = builder.Build();
 
@@ -46,11 +51,19 @@ app.UseAuthorization();
 
 app.UseRouting();
 
-app.UseEndpoints(enpoints =>
+app.UseEndpoints(endpoints =>
 {
-    enpoints.MapHealthChecks("/health");
-});
+    endpoints.MapControllers();
 
-app.MapControllers();
+    endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions
+    {
+        Predicate = (check) => check.Tags.Contains("ready")
+    });
+
+    endpoints.MapHealthChecks("/health/live", new HealthCheckOptions
+    {
+        Predicate = (_) => false
+    });
+});
 
 app.Run();
