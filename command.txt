@@ -1,4 +1,4 @@
 docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db mongo
 docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=passWord123 mongo
 dotnet user-secrets init
-dotnet user-secrets set MongoDbSettings:Password passWord123
+dotnet user-secrets set MongoDbSettings:Password passWord123 
