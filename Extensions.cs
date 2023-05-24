@@ -1,4 +1,4 @@
-using Catalog.DTOs;
+using Catalog.Dtos;
 using Catalog.Entities;
 
 namespace Catalog
@@ -8,13 +8,8 @@ namespace Catalog
 
         public static ItemDto AsDto(this Items item)
         {
-            return new ItemDto
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                CreatedDate = item.CreatedDate
-            };
+            return new ItemDto(item.Id, item.Name, item.Description, item.Price, item.CreatedDate);
+
         }
     }
 }
