@@ -12,8 +12,8 @@ spec:
         app: catalog
     spec:
       containers:
-        - name: catalog
-          image: hariskhan636/catalog:v1
+        - name: updatedcatalog
+          image: hariskhan636/updatedcatalog:v2
           resources:
             limits:
               memory: "128Mi"
